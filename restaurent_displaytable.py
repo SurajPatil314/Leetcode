@@ -1,6 +1,7 @@
 """
 https://leetcode.com/problems/display-table-of-food-orders-in-a-restaurant/
 
+prototype class to create a page/list for restaurent managers to manage all restaurent orders. 
 
 """
 
@@ -10,16 +11,16 @@ class Solution:
 
         tablefr = []
         tablefr.append("Table")
-        foodl = []
+        foodl = []  #list to save ordered food items
         d = defaultdict(list)
-        ans = []
+        ans = []  #to save final list
 
         for i in orders:
             if i[2] not in foodl:
                 foodl.append(i[2])
             d[i[1]].append(i[2])
 
-        foodl.sort()
+        foodl.sort()   #sort food alphabetically
         tablefr.extend(foodl)
 
         # ans.append(tablefr)
@@ -45,7 +46,7 @@ class Solution:
             # print('$$$$')
             # print(d1)
 
-        ans = sorted(ans, key=lambda x: int(x[0]))
+        ans = sorted(ans, key=lambda x: int(x[0]))   #sort all table orders by table numbers
         ans.insert(0, tablefr)
 
         return ans
