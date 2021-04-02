@@ -10,66 +10,33 @@ You are given trust, an array of pairs trust[i] = [a, b] representing that the p
 
 If the town judge exists and can be identified, return the label of the town judge.  Otherwise, return -1.
 
- 
+
 """
+
+from collections import defaultdict
+
 
 class Solution:
     def findJudge(self, N: int, trust: List[List[int]]) -> int:
 
-        jud = dict()
+        qw = defaultdict(list)
+        qw1 = defaultdict(list)
 
-        qw = []
-
-        if N == 0:
-            return -1
-        if N == 1:
+        if N == 1 and len(trust) == 0:
             return 1
 
         for i in trust:
-            if i[0] not in qw:
-                qw.append(i[0])
-            if i[1] not in qw:
-                qw.append(i[1])
+            qw[i[1]].append(i[0])
+            qw1[i[0]].append(i[1])
 
-            if i[0] not in jud:
-                jud[i[0]] = []
-            jud[i[0]].append(i[1])
+        ans = []
+        for i, j in qw.items():
+            if len(j) == N - 1:
+                ans.append(i)
+        for i in ans:
+            if len(qw1[i]) == 0:
+                return i
 
-        ass = 0
-        ans = -1
-
-        for i in qw:
-            print(i)
-            print('%%%')
-            if i in jud:
-                continue
-
-            qww = 0
-
-            for k, v in jud.items():
-                if ass == 1:
-                    ass = 2
-                    break
-                if i in v:
-                    qww = 1
-                else:
-                    qww = 0
-                    break
-
-            if qww == 1:
-                ans = i
-                ass = 1
-
-            if ass == 2:
-                break
-
-        if ans == -1:
-            return -1
-        else:
-            if ass == 1:
-                return ans
-            else:
-                return -1
-
+        return -1
 
 
